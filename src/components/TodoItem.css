@@ -1,0 +1,104 @@
+.todo-item {
+  position: relative;              /* needed for absolute dropdown */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* task text */
+.task-text {
+  flex: 1;
+  margin-right: 12px;
+}
+
+/* three dots - hidden by default, shown on hover */
+.more-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 6px;
+  display: none;              /* hidden until hover */
+}
+
+/* show the icon when hovering the item */
+.todo-item:hover .more-icon {
+  display: inline-block;
+}
+
+/* dropdown that appears below the item, aligned to right */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 6px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  z-index: 50;
+  min-width: 120px;
+  overflow: hidden;
+}
+
+/* buttons inside dropdown */
+.dropdown-btn {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-btn:hover {
+  background: #f3f4f6;
+}
+
+/* optional color styles */
+.dropdown-btn.edit { color: #064e3b; }    /* green-ish */
+.dropdown-btn.delete { color: #b91c1c; }  /* red-ish */
+
+.edit-input {
+  width: 100%;
+  font-size: 1rem;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+/* base (light) */
+.more-icon {
+  background: none;
+  border: none;
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;               /* visible in light mode */
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 50%;
+  transition: background-color 0.18s, transform 0.12s;
+}
+
+/* hover look */
+.more-icon:hover {
+  background-color: rgba(0,0,0,0.06);
+  transform: scale(1.06);
+}
+
+/* dark mode override — uses the class your App toggles on <body> */
+body.dark-mode .more-icon {
+  color: #fff;               /* visible in dark mode */
+}
+
+body.dark-mode .more-icon:hover {
+  background-color: rgba(255,255,255,0.12);
+}
+
+
