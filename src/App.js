@@ -6,6 +6,7 @@ import './App.css';
 
 
 function App() {
+  const [filter, setFilter] = useState("all");
   const[tasks, setTasks] = useState(() => {
     const stored = localStorage.getItem('tasks');
     return stored ? JSON.parse(stored) : [];
@@ -38,7 +39,7 @@ function App() {
 
   const addTasks = (taskText) => {
     if (taskText.trim() === "") return;
-    setTasks([{id:Date.now(), text:taskText}, ...tasks]);
+    setTasks([{id:Date.now(), text:taskText, completed:false}, ...tasks]);
   };
 
   const handleDelete =(id) =>{
@@ -51,6 +52,18 @@ function App() {
       ));
     };
   
+  const toggleComplete =(id) => {
+    setTasks(tasks.map(task => task.id === id ? {
+      ...task, completed: !task.completed
+    } : task
+    ));
+  };
+
+  const filteredTasks = (() => {
+    if(filter === "active") return tasks.filter(t => !t.completed);
+    if(filter === 'completed') return tasks.filter(t => t.completed);
+    return tasks;
+  })();
 
   return (
     <div className ="app-container">
@@ -61,9 +74,27 @@ function App() {
         </button>
       </header>
       <TodoInput onAdd={addTasks}/>
-      <TodoList tasks={tasks}
+      <div className="filters" role="tablist" aria-label="Filter tasks">
+        <button className={`filter-btn ${filter === "all" ? "active" : ""}`}
+        onClick={() => setFilter("all")}
+        >
+          All
+        </button>
+        <button className={`filter-btn ${filter === "active" ? "active" : ""}`}
+        onClick={() => setFilter("active")}
+        >
+          Active
+        </button>
+        <button className={`filter-btn ${filter === "completed" ? "active" : ""}`}
+        onClick={() => setFilter("completed")}
+        >
+          Completed
+        </button>
+      </div>
+      <TodoList tasks={filteredTasks}
       onEdit={handleEdit}
-      onDelete={handleDelete}/>
+      onDelete={handleDelete}
+      onToggleComplete={toggleComplete}/>
     </div>
   );
 }

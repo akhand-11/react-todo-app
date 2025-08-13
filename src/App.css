@@ -79,7 +79,7 @@ body.dark-mode .mode-toggle:hover {
   border-radius: 12px;
   border: 2px solid #d1d5db;
   outline: none;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, background-color 0.3s;
 }
 
 .todo-input:focus {
@@ -132,71 +132,47 @@ body.dark-mode .add-btn:hover {
   margin: 0;
 }
 
-.todo-item {
-  background-color: #ffffff;
-  padding: 14px 18px;
-  border-radius: 14px;
-  font-size: 1.2rem;
-  margin-bottom: 14px;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 0.05);
-  transition: background-color 0.3s, box-shadow 0.3s;
-  user-select: none;
-}
-
-body.dark-mode .todo-item {
-  background-color: #1e1e2f;
-  box-shadow: 0 4px 12px rgb(255 255 255 / 0.1);
-}
-
-/* .todo-item {
+/* Filter bar */
+.filters {
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
+  justify-content: center;
   align-items: center;
-  background: #f9f9f9;
-  padding: 8px 12px;
-  border-radius: 6px;
-  margin-bottom: 8px;
-  position: relative;
+  margin: 12px 0 8px;
 }
 
-.task-text {
-  flex: 1;
-}
-
-.more-icon {
+.filter-btn {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  border: 1px solid #cfd8dc;
+  background: #fff;
+  color: #333;
   cursor: pointer;
-  padding: 4px;
-  font-size: 18px;
-  display: none; /* hidden by default */
-/* }
-
-.todo-item:hover .more-icon {
-  display: inline; /* show on hover */
-/* }
-
-.dropdown-menu {
-  position: absolute;
-  top: 32px;
-  right: 10px;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  padding: 4px;
-  z-index: 10;
+  font-size: 0.95rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.06s;
 }
 
-.dropdown-menu button {
-  display: block;
-  background: none;
-  border: none;
-  padding: 6px 12px;
-  text-align: left;
-  cursor: pointer;
-  width: 100%;
+.filter-btn:hover { background: #f5f7f8; }
+
+.filter-btn.active {
+  background: teal;
+  border-color: teal;
+  color: #fff;
 }
 
-.dropdown-menu button:hover {
-  background-color: #f0f0f0;
-} */ 
+/* Dark mode tweaks */
+body.dark-mode .filter-btn {
+  background: #1d1f22;
+  border-color: #3a3f44;
+  color: #eaeaea;
+}
 
+body.dark-mode .filter-btn:hover {
+  background: #24272b;
+}
+
+body.dark-mode .filter-btn.active {
+  background: #00a3a3;
+  border-color: #00a3a3;
+  color: #0b0f12;
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./TodoItem.css";
 
-function TodoItem({ task, onDelete, onEdit }) {
+function TodoItem({ task, onDelete, onEdit , onToggleComplete}) {
   const [menuOpen, setMenuOpen] =useState(false);
   const [isEditing, setIsEditing] =useState(false);
   const [editText, setEditText] =useState(task.text);
@@ -26,9 +26,16 @@ function TodoItem({ task, onDelete, onEdit }) {
     }
   };
   return (
-    <li className="todo-item" ref ={ref}>
-      {isEditing ? (
-        <input className="edit-input" 
+    <li className={`todo-item ${task.completed ? "completed" : ""}`} ref ={ref}>
+      <input 
+        className="task-checkbox"
+        type="checkbox"
+        checked={task.completed}
+        onChange={() => onToggleComplete && onToggleComplete(task.id)}
+      />
+        {isEditing ? (
+        <input
+        className="edit-input" 
         value={editText} 
         onChange={(e) => setEditText(e.target.value)}
         onBlur={saveEdit} onKeyDown={(e) => {
@@ -49,7 +56,7 @@ function TodoItem({ task, onDelete, onEdit }) {
       <button className="more-icon" onClick={() => setMenuOpen((v) => !v)} aria-label="More actions">⁝</button>
 
       {menuOpen && (
-        <div className="dropdown-menu">
+        <div className={`dropdown-menu ${menuOpen ? "show" : ""}`}>
           {!isEditing && (
                <button className="dropdown-btn edit" 
                onClick={() => { 

@@ -1,51 +1,96 @@
 .todo-item {
-  position: relative;              /* needed for absolute dropdown */
+  position: relative;              
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
-  margin-bottom: 8px;
-  border-radius: 8px;
-  background: #f9f9f9;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  user-select: none;
 }
 
-/* task text */
+body.dark-mode .todo-item {
+  background-color: #1e1e2f;
+  box-shadow: 0 4px 12px rgba(255,255,255,0.08);
+}
+
 .task-text {
   flex: 1;
   margin-right: 12px;
+  transition: color 0.3s, text-decoration 0.3s, opacity 0.3s;
 }
 
-/* three dots - hidden by default, shown on hover */
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-right: 10px;
+  accent-color: teal;
+  transition: transform 0.1s;
+}
+
+body.dark-mode .task-checkbox {
+  accent-color: lightseagreen;
+}
+
+/* Three dots button */
 .more-icon {
   background: none;
   border: none;
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
   cursor: pointer;
-  font-size: 18px;
-  padding: 6px;
-  display: none;              /* hidden until hover */
+  padding: 4px 8px;
+  border-radius: 50%;
+  transition: background-color 0.18s, transform 0.12s, opacity 0.2s;
+  opacity: 0.7;           /* always visible, avoids flicker */
 }
 
-/* show the icon when hovering the item */
 .todo-item:hover .more-icon {
-  display: inline-block;
+  opacity: 1;             /* subtle fade in on hover */
 }
 
-/* dropdown that appears below the item, aligned to right */
+.more-icon:hover {
+  background-color: rgba(0,0,0,0.06);
+  transform: scale(1.05);
+}
+
+body.dark-mode .more-icon {
+  color: #fff;
+}
+
+body.dark-mode .more-icon:hover {
+  background-color: rgba(255,255,255,0.12);
+}
+
+/* Dropdown menu */
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 8px);
-  right: 6px;
-  background: white;
+  top: 110%;
+  right: 8px;
+  background: #fff;
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.12);
   z-index: 50;
-  min-width: 120px;
+  min-width: 140px;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
 }
 
-/* buttons inside dropdown */
+.dropdown-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 .dropdown-btn {
   display: block;
   width: 100%;
@@ -61,9 +106,8 @@
   background: #f3f4f6;
 }
 
-/* optional color styles */
-.dropdown-btn.edit { color: #064e3b; }    /* green-ish */
-.dropdown-btn.delete { color: #b91c1c; }  /* red-ish */
+.dropdown-btn.edit { color: #064e3b; }
+.dropdown-btn.delete { color: #b91c1c; }
 
 .edit-input {
   width: 100%;
@@ -73,32 +117,18 @@
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
-/* base (light) */
-.more-icon {
-  background: none;
-  border: none;
-  font-size: 22px;
-  font-weight: 700;
-  color: #333;               /* visible in light mode */
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 50%;
-  transition: background-color 0.18s, transform 0.12s;
+
+body.dark-mode .dropdown-menu {
+  background: #1e1e2f;
+  border-color: #3a3f44;
 }
 
-/* hover look */
-.more-icon:hover {
-  background-color: rgba(0,0,0,0.06);
-  transform: scale(1.06);
+body.dark-mode .dropdown-btn:hover {
+  background-color: #24272b;
 }
 
-/* dark mode override — uses the class your App toggles on <body> */
-body.dark-mode .more-icon {
-  color: #fff;               /* visible in dark mode */
+.todo-item.completed .task-text {
+  text-decoration: line-through;
+  color: gray;
+  opacity: 0.7;
 }
-
-body.dark-mode .more-icon:hover {
-  background-color: rgba(255,255,255,0.12);
-}
-
-
