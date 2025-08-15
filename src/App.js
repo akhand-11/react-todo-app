@@ -6,6 +6,7 @@ import './App.css';
 
 
 function App() {
+  const[isPremium , setIsPremium] = useState(true);
   const [filter, setFilter] = useState("all");
   const[tasks, setTasks] = useState(() => {
     const stored = localStorage.getItem('tasks');
@@ -37,9 +38,9 @@ function App() {
     }
   }, [darkMode]);
 
-  const addTasks = (taskText) => {
+  const addTasks = (taskText, category) => {
     if (taskText.trim() === "") return;
-    setTasks([{id:Date.now(), text:taskText, completed:false}, ...tasks]);
+    setTasks([{id:Date.now(), text:taskText, completed:false, category}, ...tasks]);
   };
 
   const handleDelete =(id) =>{
@@ -73,7 +74,7 @@ function App() {
           {darkMode ? "☀️" : "🌙"}
         </button>
       </header>
-      <TodoInput onAdd={addTasks}/>
+      <TodoInput onAdd={addTasks} isPremium={isPremium}/>
       <div className="filters" role="tablist" aria-label="Filter tasks">
         <button className={`filter-btn ${filter === "all" ? "active" : ""}`}
         onClick={() => setFilter("all")}

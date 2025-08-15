@@ -50,7 +50,14 @@ function TodoItem({ task, onDelete, onEdit , onToggleComplete}) {
         autoFocus
         />
       ):(
+        <div className="task-info">
          <span className="task-text">{task.text}</span>
+         {task.category && (
+          <span className={`task-category ${task.category.toLowerCase()}`}>
+            {task.category}
+          </span>
+         )}
+         </div>
       )}
      
       <button className="more-icon" onClick={() => setMenuOpen((v) => !v)} aria-label="More actions">⁝</button>
