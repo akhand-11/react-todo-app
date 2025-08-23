@@ -1,7 +1,7 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 
-function TodoList({tasks, onDelete, onEdit, onToggleComplete}) {
+function TodoList({tasks, onDelete, onEdit, onToggleComplete, onAddComment, onAddDueDate, onDeleteDueDate, onDeleteComment, onEditComment, isPremium}) {
     return(
         <ul className="todo-list">
             {tasks.map((tasks) =>(
@@ -14,6 +14,12 @@ function TodoList({tasks, onDelete, onEdit, onToggleComplete}) {
                 onDelete={onDelete}
                 onEdit={onEdit}
                 onToggleComplete ={onToggleComplete}
+                onAddDueDate={onAddDueDate}
+                onAddComment={onAddComment}
+                onDeleteComment={onDeleteComment}
+                onEditComment={onEditComment}
+                onDeleteDueDate={onDeleteDueDate}
+                isPremium={isPremium}
                 />
             ))}
         </ul>

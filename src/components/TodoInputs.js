@@ -4,13 +4,15 @@ import './TodoInput.css';
 function TodoInput({onAdd, isPremium}) {
     const[task, setTask] = useState("");
     const[category, setCategory] =useState("others");
+    const[dueDate, setDueDate] = useState("");
  
     const handleSubmit = (e) => {
         e.preventDefault();
         if(task.trim()){
-            onAdd(task.trim(), category);
+            onAdd(task.trim(), category, dueDate ? dueDate : null);
             setTask("");
             setCategory("others");
+            setDueDate("");
         }
     };
 
