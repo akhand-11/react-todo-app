@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Task = require('../models/Task');
+// const multer = require("multer");
 
 // Get all tasks for a user
 router.get('/', async(req, res) =>{
@@ -118,3 +119,19 @@ router.delete("/:id/dueDate", async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 });
+
+//file upload
+// const upload = multer({ dest: "uploads/" }); // Folder for uploaded files
+
+// router.post("/:id/attachment", upload.single("attachment"), async (req, res) => {
+//   try {
+//     // Here you can store file info in DB & return its URL
+//     const fileUrl = `/uploads/${req.file.filename}`;
+//     // Update the task in DB with fileUrl
+//     // await Task.findByIdAndUpdate(req.params.id, { attachment: fileUrl });
+
+//     res.json({ fileUrl });
+//   } catch (err) {
+//     res.status(500).json({ error: "Upload failed" });
+//   }
+// });

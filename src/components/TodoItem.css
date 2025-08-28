@@ -1,8 +1,21 @@
-.todo-item {
+/* .todo-item {
   position: relative;              
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  user-select: none;
+} */
+ .todo-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;  /* Items start at top */
+  justify-content: space-between; /* Buttons on the right, text on the left */
   padding: 12px 16px;
   margin-bottom: 12px;
   border-radius: 12px;
@@ -472,6 +485,23 @@ body.dark-mode .dropdown-btn:hover {
   transform: scale(1.1);
   color: #000;            /* Optional hover effect */
 }
+
+ /* .task-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+/*.task-subline {
+  margin-top: 4px;
+  width: 100%;
+}*/
+
+/* .task-due-date {
+   font-size: 14px;
+  color: #666;
+  margin-left: 2px;
+}  */ 
 
 
 

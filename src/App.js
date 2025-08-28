@@ -4,6 +4,7 @@ import TodoInput from './components/TodoInputs';
 import TodoList from './components/TodoList';
 import { fetchTasks, createTask , updateTask , deleteTask } from './api';
 import './App.css';
+import axios from "axios";
 
 
 function App() {
@@ -197,7 +198,7 @@ function App() {
   } catch (err) {
     console.error("Error editing comment:", err);
   }
-};
+ };
 
   const handleDeleteComment = async (id, index) => {
    try {
@@ -214,18 +215,22 @@ function App() {
   // Set due Date
   const handleAddDueDate = async (taskId, dueDate) => {
     try{
-      const response =await fetch(`/api/tasks/${taskId}/dueDate`,{
-        method : "PUT",
-        headers:{"Content-Type": "application/json"},
-        body: JSON.stringify({dueDate}),
-      });
-      const data  =await response.json();
-     if(data.success) {
-      setTasks((prev) => 
-        prev.map((t)=> (t._id === taskId ? { ...t, dueDate}: t))
-      );
-     }
-    }
+    //   const response =await fetch(`/api/tasks/${taskId}/dueDate`,{
+    //     method : "PUT",
+    //     headers:{"Content-Type": "application/json"},
+    //     body: JSON.stringify({dueDate}),
+    //   });
+    //   const data  =await response.json();
+    //  if(data.success) {
+    //   setTasks((prev) => 
+    //     prev.map((t)=> (t._id === taskId ? { ...t, dueDate}: t))
+    //   );
+    //  }
+    // }\
+    await axios.put(`/api/tasks/${taskId}/dueDate`, {dueDate});
+
+    setTasks(prevTasks => prevTasks.map(task => task._id === taskId ? {...task, dueDate} : task));
+  }
     catch (err) {
       console.error("Error updating due date:", err);
     }
@@ -244,7 +249,23 @@ function App() {
   } catch (err) {
     console.error("Error deleting due date:", err);
   }
-};
+ };
+
+ // attachmnet
+//  const handleAttachmentUpload = async (taskId, file) => {
+//     const formData = new FormData();
+//     formData.append("attachmnet", file);
+//     try{
+//       const res = await axios.post(`/api/tasks/${taskId}/attachmnet`, formData,{
+//         headers: { "Content-Type" : "multipart/form-data"},
+//       });
+//       setTasks((prevTasks) => prevTasks.map((task) => task._id ===task ? { ...task, attachment: res.data.fileUrl}: task
+//     ));
+//     }
+//     catch(err){
+//         console.error("File upload fialed:", err);
+//     }
+//   };
 
   return (
     <div className ="app-container">
@@ -284,6 +305,7 @@ function App() {
       onDeleteComment={handleDeleteComment}
       onEditComment={handleEditComment}
       onDeleteDueDate={handleDeleteDueDate}
+      // onAttachmentUpload={handleAttachmentUpload}
       isPremium={isPremium}
       />
       )}

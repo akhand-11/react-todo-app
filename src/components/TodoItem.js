@@ -12,6 +12,7 @@ function TodoItem({
   onEditComment,
   onAddDueDate,
   onDeleteDueDate,
+  // onAttachmentUpload,
   isPremium,
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,6 +25,7 @@ function TodoItem({
   const [editingCommentIndex, setEditingCommentIndex] = useState(null);
   const [editingCommentText, setEditingCommentText] = useState("");
   const ref = useRef(null);
+  // const fileInputRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -43,9 +45,16 @@ function TodoItem({
     }
   };
 
+  // const handleFileChange = (e) =>{
+  //   const file = e.target.files[0];
+  //   if(!file) return;
+  //   onAttachmentUpload(task._id, file);
+  // }
+
   return (
     <>
       <li className={`todo-item ${task.completed ? "completed" : ""}`}>
+        
         <input
           className="task-checkbox"
           type="checkbox"
@@ -72,15 +81,35 @@ function TodoItem({
           />
         ) : (
           <div className="task-info">
-            <span className="task-text">{task.text}</span>
-            {task.category && (
-              <span className={`task-category ${task.category.toLowerCase()}`}>
+           <div className="task-main">
+             <span className="task-text">{task.text}</span>
+               {/* {task.category && (
+               <span className={`task-category ${task.category.toLowerCase()}`}>
                 {task.category}
               </span>
-            )}
+             )} */}
+            </div>
+            {task.dueDate ? (
+              <div className="task-subline">
+               <span className="task-due-date">
+                 🗓️{new Date(task.dueDate).toLocaleDateString("en-GB", {
+                  day:"2-digit", 
+                  month: "short",
+                  })}
+                </span>
+              </div>
+            ) : null}
           </div>
         )}
-      <div className="task-actions">
+        <div className="task-actions">
+        <span className="task-category">
+          {task.category && (
+               <span className={`task-category ${task.category.toLowerCase()}`}>
+                {task.category}
+              </span>
+             )} 
+        </span>
+
         <button 
         className="due-date-btn"
         onClick={() =>{
@@ -105,11 +134,24 @@ function TodoItem({
         className="attachment-btn"
         onClick={()=>{
           if(isPremium) return alert("Premium Feature");
-          
+          // fileInputRef.current.click();
         }}
         >
           📎
         </button>
+        {/* <input
+        type="file"
+        ref={fileInputRef}
+        style={{display:"none"}}
+        onChange={handleFileChange}}
+        /> */}
+        {/* {task.attachmnet && (
+          <a
+            href={task.attachmnet}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="task-attachment">View File</a>
+        )} */}
 
         {/* Dropdown menu */}
         <button
@@ -119,7 +161,7 @@ function TodoItem({
         >
           <b>⁝</b>
         </button>
-      </div>
+        </div>
         {menuOpen && (
           <div className={`dropdown-menu ${menuOpen ? "show" : ""}`}>
             {!isEditing && (
